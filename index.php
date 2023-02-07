@@ -45,6 +45,8 @@ $hotels = [
 ?>
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,6 +57,21 @@ $hotels = [
     <title>Hotels</title>
 </head>
 <body>
+    <form action="" >
+        <div class="d-flex flex-column">
+            <div>
+                <input type="radio" name="hasParking" value="true"> <span>con parcheggio</span> 
+            </div>
+            <div>
+                <input type="radio" name="hasParking" value="false"> <span>senza parcheggio</span> 
+            </div>
+
+        </div>
+        
+
+        <button>filtra</button>
+    </form>
+
     <div class="container border mt-5">
             <div class="row g-3 d-flex justify-content-between">
                 <h3 class="col-2"> Name </h3>
@@ -68,24 +85,29 @@ $hotels = [
     </div>
     <?php foreach($hotels as $hotel): ?>
         <div class="container border ">
-            <div class="row g-3 d-flex justify-content-between">
-                <h3 class="col-2"> <?php echo $hotel['name'] ?> </h3>
-                <h3 class="col-2"> <?php echo $hotel['description'] ?> </h3>
-                <h3 class="col-2"> <?php echo $hotel['vote'] ?> </h3>
-                <h3 class="col-2">
-                    
-                    <?php if($hotel['parking']){ ?> 
-                    <?php echo $hotel["parking"]?>
 
-                    <?php } else{ ?>
-                    parcheggio assente
-                    <?php }?>
-                    
-                </h3>
-                <h3 class="col-2"> <?php echo $hotel['distance_to_center'] ?> </h3>
-                
-            </div>
+        
+        
+            <?php if(!$_GET || $_GET['hasParking'] == 'true' &&   $hotel['parking'] || $_GET['hasParking'] == 'false' && !$hotel['parking']) { ?>
             
+                <div class="row g-3 d-flex justify-content-between">
+                    <h3 class="col-2"> <?php echo $hotel['name'] ?> </h3>
+                    <h3 class="col-2"> <?php echo $hotel['description'] ?> </h3>
+                    <h3 class="col-2"> <?php echo $hotel['vote'] ?> </h3>
+                    <h3 class="col-2">
+
+                        <?php if($hotel['parking']){ ?> 
+                        presente
+
+                        <?php } else{ ?>
+                        assente
+                        <?php }?>
+                        
+                    </h3>
+                    <h3 class="col-2"> <?php echo $hotel['distance_to_center'] ?> </h3>
+                    
+                </div>
+            <?php } ?>
         </div>
 
 
