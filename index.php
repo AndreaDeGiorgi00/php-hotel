@@ -58,13 +58,15 @@ $hotels = [
 </head>
 <body>
     <form action="" >
-        <div class="d-flex flex-column">
-            <div>
-                <input type="radio" name="hasParking" value="true"> <span>con parcheggio</span> 
-            </div>
-            <div>
-                <input type="radio" name="hasParking" value="false"> <span>senza parcheggio</span> 
-            </div>
+        <div class="d-flex flex-column align-items-start">
+            
+            <input type="number" name="stars" >
+
+            <select name="hasParking" >
+                <option value="free">con e senza parcheggio</option>
+                <option value="true">presenza di parcheggio</option>
+                <option value="false">assenza di parcheggio</option>
+            </select>
 
         </div>
         
@@ -87,9 +89,11 @@ $hotels = [
         <div class="container border ">
 
         
-        
-            <?php if(!$_GET || $_GET['hasParking'] == 'true' &&   $hotel['parking'] || $_GET['hasParking'] == 'false' && !$hotel['parking']) { ?>
-            
+         <!--controllo per permettere il filtraggio in base al parcheggio-->
+            <?php if(!$_GET || $_GET['hasParking'] == 'true' &&   $hotel['parking'] || $_GET['hasParking'] == 'false' && !$hotel['parking'] || $_GET['hasParking'] == 'free') { ?>
+         <!--controllo che permette il filtraggio attraverso il voto-->   
+            <?php if(!$_GET || $hotel['vote'] > $_GET['stars']) { ?>
+
                 <div class="row g-3 d-flex justify-content-between">
                     <h3 class="col-2"> <?php echo $hotel['name'] ?> </h3>
                     <h3 class="col-2"> <?php echo $hotel['description'] ?> </h3>
@@ -107,6 +111,7 @@ $hotels = [
                     <h3 class="col-2"> <?php echo $hotel['distance_to_center'] ?> </h3>
                     
                 </div>
+            <?php } ?>
             <?php } ?>
         </div>
 
